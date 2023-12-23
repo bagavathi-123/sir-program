@@ -1,0 +1,123 @@
+Todays Agenda:
+===============
+   09:00-09:30->POM introduction
+   09:30-10:15->POM Design + Sequential execution
+   10:25-11:00->Classroom(25 Mins)+break(10Mins)
+   11:00-11:30->parallel execution
+   11:30-11:50->Classroom
+   11:50-12:00-> break
+   12:00-12:40->Parameterize
+   12:40-01:00> classroom
+  
+POM-Page Object Model
+
+pom.xml-Project object Model
+
+POM is framework or not?
+
+POM-is not framework
+
+POM - is Design pattern  to build your framework
+
+Steps to Implement PageObjectModel:
+==================================
+   1)Create a separate Project for POM
+   2)Add all the dependencies in the pom.xml
+   3)Create 4 packages (base,pages,testcase,utils
+   4)Inside base package create a PSM
+   5)Inside the BaseClass have preCondition(Load the url) and PostCondition
+   6)Inside the pages package create 6 pages
+           -LoginPage
+	   -WelcomePage or HomePage
+	   -MyHomePage
+	   -MyLeadsPage
+	   -CreateLeadPage
+	   -ViewLeadPage
+   7)Make sure all the pages should extend your PSM
+   8)For each Pages create separate methods and put the codes for each of your action
+   9)Finally add the return statement
+        -If the control stays  in the same page return this(keyword) and change the return type
+        -If the control moves to another page then add return statement according to it page
+
+Need to stay in same page-use this(keyword)
+connet one page to another need use- return new constructor(nextpage -calssname)
+
+
+ClassRoom 1:
+src/test/java
+create 4 packages
+base-common steps
+pages-loginpage,homepage-crmsfa/logout
+testcase-login,logout
+
+
+
+
+NullPointerException: "driver" instance is not passed correctly to all the classes
+
+Execute in parallel in POM
+        =============================
+        1. to remove static keyword from BaseClass
+        2. you need create own constructor for  all the class , i need pass my driver  as agrs
+        2.a -this.driver=driver
+        3.where you given return new constructor(driver)-need pass the driver inside method
+
+
+
+
+If i created own Constructor in all class- i can perform both seq & parallel executed
+
+
+
+
+
+for seq exection - added static Keyword run the program
+
+issues : for parallel execution-
+* with static keyword its not executed correctly 
+* then i removed static keyword from base class- Nullpointer exception
+
+overcome :
+step 1: removed static keyword from baseclass
+issue is my driver instance
+step 2:  i need use own constructor call to all class and pass driver args
+public loginpage(chromedriver driver)
+
+step3: this.driver(baseclass)= driver(loginpage);
+
+driver.findelement(by.id("username")).sendkeys("demoslaesmanager");
+
+with constructor call i can executed both "sequential" and "parallel"
+
+
+
+
+
+
+
+
+Static parameterize:
+
+under pages:
+* step1 : Create Input agrs inside method
+* step 2: remove hardcoded values and replace the input agrs
+under testcase:
+* step 3: In,testcase pass the value for it.
+
+
+
+
+
+
+
+
+
+How to Parameterize the data?
+	  1)Create a new package(utils) and copy the ReadExel class from the previous project or package 
+	  and paste it here
+	  2)Create a data folder and create excel sheets
+	  3)Declare the filedata globally in baseclass
+	  4)Create a method for @DataProvider and call the ReadExel class
+	  5)Integrate @Test with dataProvider attribute
+	  6)Pass the inputs as arguments in the testcase method level and replace the hardcoded values
+	  7)In the testcase create a method to mention the ExcelFileName and annotate with @BeforeTest
